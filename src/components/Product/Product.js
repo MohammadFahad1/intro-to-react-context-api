@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CartContext } from '../Products/Products';
 
-const Product = ({ tshirt, addToCart }) => {
+const Product = ({ tshirt }) => {
     const { picture, name, price } = tshirt;
+    const addToCart = useContext(CartContext)[2];
+    const Cart = useContext(CartContext)[0];
 
     return (
         <div className="card w-full glass">
@@ -10,7 +13,7 @@ const Product = ({ tshirt, addToCart }) => {
                 <h2 className="card-title font-bold">{name}</h2>
                 <div className="card-actions justify-between items-center">
                     <h2 className='text-2xl'>${price}</h2>
-                    <button className="btn btn-primary" onClick={() => addToCart(tshirt)}>Add to Cart</button>
+                    <button className="btn btn-primary" onClick={() => addToCart(tshirt)} disabled={(Cart.includes(tshirt) ? true : false)}>{(Cart.includes(tshirt) ? 'Added' : 'Add to Cart')}</button>
                 </div>
             </div>
         </div>
